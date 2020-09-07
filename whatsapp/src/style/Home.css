@@ -1,0 +1,7 @@
+.home {
+	display: flex;
+	background-color: #d1c7c769;
+	box-shadow: -1px 4px 20px -6px rgba(0, 0, 0, 0.7);
+	width: 90vw;
+	height: 90vh;
+}

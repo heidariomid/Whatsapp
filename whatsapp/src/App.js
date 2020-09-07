@@ -1,5 +1,4 @@
 import React, {useEffect} from 'react';
-import {Link} from 'react-router-dom';
 import {actions} from './store/actions';
 import './style/App.css';
 import {connect} from 'react-redux';
@@ -9,12 +8,7 @@ const App = ({fetchUser}) => {
 	useEffect(() => {
 		fetchUser({messages: 'Redux is Connected'});
 	}, [fetchUser]);
-	return (
-		<div className="app">
-			Go to <Link to="user">User</Link> Component
-			{Components}
-		</div>
-	);
+	return <div className="app">{Components}</div>;
 };
 
 const Dispatch = (dispatch) => {

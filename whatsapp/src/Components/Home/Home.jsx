@@ -1,12 +1,14 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {actions} from '../../store/actions';
-
+import Sidebar from '../SideBar/Sidebar';
+import '../../style/Home.css';
+import Chats from '../Chat/Chats';
 const Home = ({messages}) => {
 	return (
-		<div>
-			<h2>Welcom to Home Component</h2>
-			<h3>{messages}</h3>
+		<div className="home">
+			<Sidebar />
+			<Chats />
 		</div>
 	);
 };
