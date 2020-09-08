@@ -1,23 +1,30 @@
 import React, {useEffect, useState} from 'react';
 import {Avatar} from '@material-ui/core';
+import {Link} from 'react-router-dom';
 import AddOutlinedIcon from '@material-ui/icons/AddOutlined';
 import '../../style/SidebarChat.css';
-const SideBarChat = ({addNewChat}) => {
+import db from '../../db/firebase';
+const SideBarChat = ({addNewChat, name, id}) => {
 	const [seed, setSeed] = useState('');
 	useEffect(() => {
 		setSeed(Math.floor(Math.random() * 9 + 1));
 	}, [seed]);
 	const createChat = () => {
-		prompt('Enter Your Name');
+		const name = prompt('Enter Your Name');
+		if (name) {
+			db.collection('rooms').add({name});
+		}
 	};
 	return !addNewChat ? (
-		<div className="sidebar__chat">
-			<Avatar src={`https://avatars.dicebear.com/api/human/${seed}.${'svg'}`} />
-			<div className="sidebar__chat_info">
-				<h2>room</h2>
-				<p>last msg...</p>
+		<Link to={`/room/${id}`}>
+			<div className="sidebar__chat">
+				<Avatar src={`https://avatars.dicebear.com/api/human/${seed}.${'svg'}`} />
+				<div className="sidebar__chat_info">
+					<h2>{name}</h2>
+					<p>last msg...</p>
+				</div>
 			</div>
-		</div>
+		</Link>
 	) : (
 		<div className="sidebar__chat" onClick={createChat}>
 			<div className="sidebar__chat__add">

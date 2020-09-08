@@ -1,5 +1,5 @@
 import NotFound from '../Components/NotFound';
-import Users from '../Components/User/Users';
+import Chat from '../Components/Chat/Chats';
 import Home from '../Components/Home/Home';
 const routes = [
 	{
@@ -8,9 +8,9 @@ const routes = [
 		component: Home,
 	},
 	{
-		path: '/user',
+		path: '/room/:roomId',
 		exact: true,
-		component: Users,
+		component: Chat,
 	},
 	{
 		component: NotFound,

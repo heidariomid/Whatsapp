@@ -4,7 +4,8 @@ import {actions} from '../../store/actions';
 import Sidebar from '../SideBar/Sidebar';
 import '../../style/Home.css';
 import Chats from '../Chat/Chats';
-const Home = ({messages}) => {
+
+const Home = () => {
 	return (
 		<div className="home">
 			<Sidebar />
@@ -13,7 +14,7 @@ const Home = ({messages}) => {
 	);
 };
 
-const State = (state) => ({userState: state.users.items, messages: state.users.messages, errorMessages: state.users.errorMessages});
+const State = (state) => ({userState: state.users.items, messages: state.users.messages, errorMessages: state.users.errorMessages, status: state.users.status});
 const Dispatch = (dispatch) => {
 	return {
 		fetchUser: (payload) => {

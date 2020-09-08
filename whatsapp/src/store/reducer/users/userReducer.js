@@ -5,10 +5,10 @@ import {actions} from '../../actions';
 const reducer = (userState, action) => {
 	let result = userState;
 	switch (action.type) {
-		case actions.FETCH_USER_SUCCESS:
+		case actions.SEND_MESSAGE_SUCCESS:
 			result = {...userState, messages: action.payload.messages};
 			break;
-		case actions.FETCH_USER_FAILED:
+		case actions.SEND_MESSAGE_FAILED:
 			result = {...userState, hasError: true, errorMessages: action.payload.messages};
 			break;
 		default:

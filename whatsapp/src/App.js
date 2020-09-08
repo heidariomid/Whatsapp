@@ -1,6 +1,7 @@
 import React, {useEffect} from 'react';
 import {actions} from './store/actions';
 import './style/App.css';
+import './style/Home.css';
 import {connect} from 'react-redux';
 import Components from './routes/router';
 
