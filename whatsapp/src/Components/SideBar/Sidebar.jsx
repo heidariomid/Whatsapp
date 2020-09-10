@@ -3,15 +3,16 @@ import db from '../../db/firebase';
 import DonutLargeIcon from '@material-ui/icons/DonutLarge';
 import ChatIcon from '@material-ui/icons/Chat';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
+import {connect} from 'react-redux';
+import {actions} from '../../store/actions';
 import {Avatar, IconButton} from '@material-ui/core';
 import SearchOutlinedIcon from '@material-ui/icons/SearchOutlined';
 import '../../style/SideBar.css';
 import SideBarChat from './SideBarChat';
-const Sidebar = () => {
-	const [rooms, setRooms] = useState([]);
+const Sidebar = ({fetchRoom, rooms, items}) => {
 	useEffect(() => {
 		db.collection('rooms').onSnapshot((snapShot) =>
-			setRooms(
+			fetchRoom(
 				snapShot.docs.map((doc) => ({
 					id: doc.id,
 					data: doc.data(),
@@ -22,7 +23,7 @@ const Sidebar = () => {
 	return (
 		<div className="sidebar">
 			<div className="sidebar__header">
-				<Avatar />
+				<Avatar src={items.photoURL} />
 				<div className="sidebar_headerRight">
 					<div className="sidebar_headerRight_hideOnMobile">
 						<IconButton>
@@ -52,5 +53,16 @@ const Sidebar = () => {
 		</div>
 	);
 };
+const State = (state) => ({rooms: state.users.rooms, items: state.users.items});
 
-export default Sidebar;
+const Dispatch = (dispatch) => {
+	return {
+		fetchRoom: (payload) => {
+			dispatch({
+				type: actions.FETCH_ROOM,
+				payload,
+			});
+		},
+	};
+};
+export default connect(State, Dispatch)(Sidebar);

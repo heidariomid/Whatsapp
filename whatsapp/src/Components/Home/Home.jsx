@@ -5,11 +5,11 @@ import Sidebar from '../SideBar/Sidebar';
 import '../../style/Home.css';
 import Chats from '../Chat/Chats';
 
-const Home = () => {
+const Home = ({status}) => {
 	return (
-		<div className="home">
-			<Sidebar />
-			<Chats />
+		<div>
+			{/* <Sidebar /> */}
+			{status ? <Chats /> : <h1>NO CHAT FOUND</h1>}
 		</div>
 	);
 };

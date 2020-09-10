@@ -8,26 +8,44 @@ import MicIcon from '@material-ui/icons/Mic';
 import {connect} from 'react-redux';
 import {actions} from '../../store/actions';
 import {useParams} from 'react-router-dom';
-
+import firebase from 'firebase';
 import '../../style/Chat.css';
+import db from '../../db/firebase';
 
-const Chats = ({sendMessage, messages}) => {
-	const {roomId, hi} = useParams();
+const Chats = ({sendMessage, user}) => {
+	const {roomId} = useParams();
 	const [inputValue, setInputValue] = useState('');
+	const [roomName, setRoomName] = useState('');
+	const [messages, setMessages] = useState([]);
 	const sendMessageHandler = (e) => {
 		e.preventDefault();
 		sendMessage({messages: inputValue});
-
 		setInputValue('');
+		db.collection('rooms').doc(roomId).collection('messages').add({
+			message: inputValue,
+			name: user.displayName,
+			timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+		});
 	};
-
+	useEffect(() => {
+		if (roomId) {
+			db.collection('rooms')
+				.doc(roomId)
+				.onSnapshot((snapshot) => setRoomName(snapshot.data().name));
+		}
+		db.collection('rooms')
+			.doc(roomId)
+			.collection('messages')
+			.orderBy('timestamp', 'asc')
+			.onSnapshot((snapshot) => setMessages(snapshot.docs.map((doc) => doc.data())));
+	}, [roomId]);
 	return (
 		<div className="chat">
 			<div className="chat_header">
 				<Avatar />
 				<div className="chat_header_info">
-					<h3>title</h3>
-					<p>description</p>
+					<h3>{roomName}</h3>
+					<p>last seen {new Date(messages[messages.length - 1]?.timestamp?.toDate()).toLocaleTimeString()}</p>
 				</div>
 				<div className="chat_header_right">
 					<IconButton>
@@ -42,16 +60,13 @@ const Chats = ({sendMessage, messages}) => {
 				</div>
 			</div>
 			<div className="chat_body">
-				<p className="chat_body_msg">
-					<span className="chat_body_name">omid</span>
-					hi Guys
-					<span className="chat_body_timestamp">23:43</span>
-				</p>
-				<p className="chat_body_msg msg_reciever">
-					<span className="chat_body_name">ati</span>
-					{messages}
-					<span className="chat_body_timestamp">23:44</span>
-				</p>
+				{messages.map((message) => (
+					<p className={`chat_body_msg ${message.name === user.displayName && 'msg_reciever'}`}>
+						<span className="chat_body_name">{message.name}</span>
+						<span>{message.message}</span>
+						<span className="chat_body_timestamp">{new Date(message.timestamp?.toDate()).toLocaleTimeString()}</span>
+					</p>
+				))}
 			</div>
 			<div className="chat_footer">
 				<InsertEmoticonIcon />
@@ -67,7 +82,7 @@ const Chats = ({sendMessage, messages}) => {
 	);
 };
 
-const State = (state) => ({userState: state.users.items, messages: state.users.messages, errorMessages: state.users.errorMessages});
+const State = (state) => ({user: state.users.items});
 const Dispatch = (dispatch) => {
 	return {
 		sendMessage: (payload) => {

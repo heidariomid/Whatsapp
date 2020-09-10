@@ -5,7 +5,9 @@
 	border-bottom: 1px solid rgb(156, 156, 156);
 	color: rgb(228, 226, 226);
 }
-
+a {
+	text-decoration: none;
+}
 .sidebar__chat:hover {
 	background-color: rgba(77, 75, 75, 0.712);
 }

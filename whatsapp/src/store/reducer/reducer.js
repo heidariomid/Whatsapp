@@ -1,7 +1,7 @@
 import userReducer from './users/userReducer';
 
 export const initialState = {
-	users: {items: [], messages: '', hasError: false, errorMessages: ''},
+	users: {rooms: [], items: {}, messages: '', isLogin: false, hasError: false, errorMessages: '', status: false},
 };
 
 export const reducer = (state = initialState, action) => {
