@@ -1,6 +1,6 @@
 {
 	"files.exclude": {
-		"package.json": true,
+		// "package.json": true,
 		"public": true,
 		"**/db": true,
 		"**/Https": true,
