@@ -1,13 +1,13 @@
 {
 	"files.exclude": {
-		"package.json": true,
+		// "package.json": true,
 		"public": true,
 		"**/db": true,
 		"**/Https": true,
 		"**/util": true,
 		"**/Partials": true,
 		"**/images": true,
-		"*/index.js": true,
+		// "*/index.js": true,
 		"*/index.css": true,
 
 		".gitignore": true,
