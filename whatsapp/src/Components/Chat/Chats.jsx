@@ -60,7 +60,7 @@ const Chats = ({sendMessage, user}) => {
 				</div>
 			</div>
 			<div className="chat_body">
-				{messages.map((message) => (
+				{messages?.map((message) => (
 					<p className={`chat_body_msg ${message.name === user.displayName && 'msg_reciever'}`}>
 						<span className="chat_body_name">{message.name}</span>
 						<span>{message.message}</span>

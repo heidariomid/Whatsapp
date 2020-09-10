@@ -7,7 +7,7 @@
 		"**/util": true,
 		"**/Partials": true,
 		"**/images": true,
-		// "*/index.js": true,
+		"*/index.js": true,
 		"*/index.css": true,
 
 		".gitignore": true,
