@@ -48,7 +48,6 @@ export function* fetchRoomWatcher() {
 
 //TODO FETCH Worker
 function* authenticateWorker(action) {
-	console.log(action.payload.user);
 	try {
 		const UID = yield call(() => action.payload.user.uid);
 		localStorage.setItem('UID', JSON.stringify(UID));
